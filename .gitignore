@@ -11,10 +11,15 @@ __pycache__/
 
 # Output files
 output/
+output/
+output_video.mp4
 temp_*.mp3
 temp_*.png
 temp_*.mp4
 generated_*.txt
+*.mp3
+*.png
+*.mp4
 
 # API Credentials
 client_secrets.json

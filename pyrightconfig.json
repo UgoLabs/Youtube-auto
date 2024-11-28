@@ -1,0 +1,4 @@
+{
+    "ignore": ["moviepy"],
+    "reportMissingImports": false
+} 

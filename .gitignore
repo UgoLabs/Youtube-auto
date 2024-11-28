@@ -1,0 +1,30 @@
+# Environment
+venv/
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Output files
+output/
+temp_*.mp3
+temp_*.png
+temp_*.mp4
+generated_*.txt
+
+# API Credentials
+client_secrets.json
+*.pickle
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

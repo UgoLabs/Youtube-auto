@@ -1,0 +1,42 @@
+[Unit]
+Description=YouTube Auto Video Generator
+After=network.target local-fs.target
+Requires=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/youtube_auto
+
+# Environment configuration
+Environment=PYTHONUNBUFFERED=1
+Environment=PATH=/home/ubuntu/venv/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PYTHONPATH=/home/ubuntu/youtube_auto
+
+# Security-sensitive credentials - reference from credentials file
+EnvironmentFile=/home/ubuntu/youtube_auto/.env
+
+# Directory setup
+ExecStartPre=/bin/bash -c 'mkdir -p /home/ubuntu/youtube_auto/logs'
+ExecStartPre=/bin/bash -c 'mkdir -p /home/ubuntu/youtube_auto/output/{scripts,audio,images,video}'
+
+# Run in continuous mode with 12 hour intervals
+ExecStart=/home/ubuntu/venv/bin/python /home/ubuntu/youtube_auto/main.py --continuous --interval 12
+
+# Logging with absolute paths
+StandardOutput=file:/home/ubuntu/youtube_auto/logs/youtube_auto.log
+StandardError=file:/home/ubuntu/youtube_auto/logs/youtube_auto.error.log
+
+# Resource limits - increased for Mistral model with quantization
+MemoryHigh=20G
+CPUQuota=90%
+IOWeight=500
+
+# Restart configuration - longer interval for AI processing
+Restart=always
+RestartSec=600
+StartLimitInterval=3600
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
